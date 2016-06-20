@@ -1,0 +1,7 @@
+reporting:
+  reports:
+    - cobertura
+    - lcov
+  report-config:
+    cobertura:
+      file: 'cobertura.xml'

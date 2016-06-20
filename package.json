@@ -1,0 +1,44 @@
+{
+  "name": "bgcore",
+  "description": "Brewgauge core functions",
+  "version": "0.0.1",
+  "homepage": "https://github.com/brewgauge/bgcore",
+  "author": {
+    "name": "Marco Piraccini",
+    "email": "marco.piraccini@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/brewgauge/bgcore.git"
+  },
+  "scripts": {
+    "lint": "standard",
+    "depcheck": "dependency-check package.json --unused --no-dev --entry test/*.js --entry index.js",
+    "test": "node test/all.js | faucet",
+    "coverage": "istanbul cover test/all.js"
+  },
+  "engines": {
+    "node": ">=4.2.0"
+  },
+  "dependencies": {
+    "install": "^0.8.1",
+    "npm": "^3.9.6",
+    "quadratic-roots": "^1.0.0"
+  },
+  "devDependencies": {
+    "dependency-check": "^2.5.1",
+    "git-hooks": "^1.0.0",
+    "istanbul": "^0.4.3",
+    "standard": "^7.1.2",
+    "tape": "^4.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/brewgauge/bgcore/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "main": "./index"
+}
