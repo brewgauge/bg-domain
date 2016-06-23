@@ -1,1 +1,2 @@
-require('./adcToCelsius')
+require('./lib/adcToCelsius')
+require('./bg')

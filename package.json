@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "install": "^0.8.1",
+    "mqtt": "^1.11.2",
     "npm": "^3.9.6",
     "quadratic-roots": "^1.0.0"
   },

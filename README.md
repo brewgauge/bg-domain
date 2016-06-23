@@ -1,21 +1,65 @@
 # bgcore
-brewgauge core functions.
+It's a MQTT client that do the temperature calculation, converting the measured
+ADC value (received from a MQTT broker) to Celsius when receiving messages.
 
-# Usage
-See below for the documentation for each function
+## Usage
+-----
 
 ```
-var bgcore = require('bgcore')
+var BG = require('bgcore')
+var bg = new BG(opts)
 
-// (... get adc / checksum)
+var opts = {
+  url: 'mqtt://test.mosquitto.org',
+  topic: 'brewgauge'
+}
 
-bgcore.adc2c(adc, checksum, (err, temp) {
-  (...)
+bg.on('connect', () => {
+  // BG connected
 })
+
+bg.on('temperature', (msg) => {
+  // Emitting a message with the calculated temperature
+})
+
+bg.on('err', (err) => {
+  // error
+})
+
+// (...)
+
+bg.end() // Call end when done
+```
+Message received must be JSON string / buffers, with a numeric `adc_value` (otherwise an error is generated), e.g:
+
+```
+  var sensorMessage = {
+    remote_ip: '10.10.10.10',
+    board_id: 3,
+    channel_id: 2,
+    adc_value: 2075
+  }
+```
+'adc_value' is mandatory. If the `checksum` is present, is verified.
+
+When a message is receved, a `temperature` event is generated with the  new `temperature` property, e.g.:
+
+```
+  var sensorMessage = {
+    remote_ip: '10.10.10.10',
+    board_id: 3,
+    channel_id: 2,
+    adc_value: 2075,
+    temperature: 70.340
+  }
 ```
 
-## adc2c
-`adc2c`: convert the read value (adc) to Celsius degree. Works only for T > 100
+In the Browser
+-----------
+
+[TODO]
+
+## ADC to Celsius Conversion
 
 The relation between Resistance and temperature is (see for instance https://www.picotech.com/library/application-note/pt100-platinum-resistance-thermometers):
 
@@ -54,3 +98,8 @@ c = (100 - Rt)
 ```
 
 The temperature is the first solution of the quadratic equation.
+
+Acknowledgements
+----------------
+
+This project was kindly sponsored by [nearForm](http://nearform.com).
