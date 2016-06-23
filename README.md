@@ -40,7 +40,7 @@ Message received must be JSON string / buffers, with a numeric `adc_value` (othe
     adc_value: 2075
   }
 ```
-'adc_value' is mandatory. If the `checksum` is present, is verified.
+`adc_value` is mandatory. If the `checksum` is present, is verified.
 
 When a message is receved, a `temperature` event is generated with the  new `temperature` property, e.g.:
 
