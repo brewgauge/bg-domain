@@ -3,7 +3,7 @@ It's a MQTT client that do the temperature calculation, converting the measured
 ADC value (received from a MQTT broker) to Celsius when receiving messages.
 
 ## Usage
------
+-----------
 
 ```
 var BG = require('bgcore')
