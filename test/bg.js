@@ -104,7 +104,7 @@ test('bg - Received wrong message, wrong adc_value', function (t) {
     })
   })
 
-  bg.on('err', (err) => {
+  bg.on('err', () => {
     // t.equals(err, '[Error: Value xxxxxxxx is not a number]')
     received = true
   })
