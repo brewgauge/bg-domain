@@ -1,15 +1,16 @@
 'use strict'
+
 var mqtt = require('mqtt')
 var adc2c = require('./lib/adcToCelsius')
 var EventEmitter = require('events').EventEmitter
 var util = require('util')
 
 /**
- * BG. Subscribe to the `topic` on a `url`,
+ * Domain. Subscribe to the `topic` on a `url`,
  * when a message is received, enanche the message
  * calculating the temp and then push it through the web socket.
  */
-function BG (opts) {
+function Domain (opts) {
   var self = this
   EventEmitter.call(this)
   self.client = mqtt.connect(opts.url)
@@ -44,11 +45,11 @@ function BG (opts) {
   })
 }
 
-util.inherits(BG, EventEmitter)
+util.inherits(Domain, EventEmitter)
 
-BG.prototype.end = function () {
+Domain.prototype.end = function () {
   this.client.end()
   this.emit('end')
 }
 
-module.exports = BG
+module.exports = Domain
