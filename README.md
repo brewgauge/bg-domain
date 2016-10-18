@@ -1,34 +1,45 @@
-# bgcore
-It's a MQTT client that do the temperature calculation, converting the measured
-ADC value (received from a MQTT broker) to Celsius when receiving messages.
+# bg-domain 
 
-## Usage
------------
+- __Sponsor:__ [nearForm][Sponsor]
+
+The domain layer for the brewgauge system. It receives messages via hardware, parses the values and emits new messages for storage or consumption.  
+
+- __Work in progress:__ This module is currently a work in progress.
+
+
+## Install
+To install, use npm
 
 ```
-var BG = require('bgcore')
-var bg = new BG(opts)
+npm install
+```
+
+## Usage
+
+```
+var Domain = require('bg-domain')
+var domain = new Domain(opts)
 
 var opts = {
   url: 'mqtt://test.mosquitto.org',
   topic: 'brewgauge'
 }
 
-bg.on('connect', () => {
+domain.on('connect', () => {
   // BG connected
 })
 
-bg.on('temperature', (msg) => {
+domain.on('temperature', (msg) => {
   // Emitting a message with the calculated temperature
 })
 
-bg.on('err', (err) => {
+domain.on('err', (err) => {
   // error
 })
 
 // (...)
 
-bg.end() // Call end when done
+domain.end() // Call end when done
 ```
 Message received must be JSON string / buffers, with a numeric `adc_value` (otherwise an error is generated), e.g:
 
@@ -54,14 +65,9 @@ When a message is receved, a `temperature` event is generated with the  new `tem
   }
 ```
 
-In the Browser
------------
-
-[TODO]
-
 ## ADC to Celsius Conversion
 
-The relation between Resistance and temperature is (see for instance https://www.picotech.com/library/application-note/pt100-platinum-resistance-thermometers):
+The relation between resistance and temperature is, 
 
 `Rt = R0 * (1 + A*t + B*t^2 + C*(t-100)* t^3)`
 
@@ -97,9 +103,12 @@ b = A = 0.39083
 c = (100 - Rt)
 ```
 
-The temperature is the first solution of the quadratic equation.
+The temperature is the first solution of the quadratic equation. See [here][hwinfo] for info plus input hardware.
 
-Acknowledgements
-----------------
+## License
+Copyright (c) 2016, Marco Piraccini and other contributors.
+Licensed under [MIT][License].
 
-This project was kindly sponsored by [nearForm](http://nearform.com).
+[Sponsor]: http://www.nearform.com/
+[License]: ./LICENSE
+[hwinfo]: https://www.picotech.com/library/application-note/pt100-platinum-resistance-thermometers
